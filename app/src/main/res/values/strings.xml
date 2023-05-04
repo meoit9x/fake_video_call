@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Base</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <!--FONT-->
+    <string name="font_italic" translatable="false">fonts/Roboto-BlackItalic.ttf</string>
+    <string name="font_bold" translatable="false">fonts/Roboto-Bold.ttf</string>
+    <string name="font_regular" translatable="false">fonts/Roboto-Regular.ttf</string>
+    <string name="font_black" translatable="false">fonts/Roboto-Black.ttf</string>
+    <string name="font_medium" translatable="false">font/Roboto-Medium.ttf</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="copy_to_clib_board">Save to clip board</string>
+    <string name="app_name_setting">Spin Wheel</string>
+    <string name="sound">Sound</string>
+    <string name="setting">Setting</string>
+    <string name="active_all">Active all</string>
+    <string name="inactive">Inactive</string>
+    <string name="content">Content</string>
+    <string name="loading_api">Getting the language for you</string>
+
+    <string name="title_default_1">What I want to eat is..</string>
+    <string name="content_default_1" translatable="false">Phone</string>
+    <string name="content_default_2" translatable="false">Moto</string>
+    <string name="content_default_3" translatable="false">Car</string>
+    <string name="content_default_4" translatable="false">Big Gift</string>
+    <string name="content_default_5" translatable="false">Kiss</string>
+    <string name="content_default_6" translatable="false">One chicken</string>
+
+    <string name="title_make_video_call">Make Video Call</string>
+    <string name="call_now">Call Now</string>
+    <string name="call_type">Call type</string>
+    <string name="incoming_call">Incoming call</string>
+    <string name="calling">Calling</string>
+    <string name="name_your_friend">Name Your Friend</string>
+    <string name="hint_text_name">Cameron Williamson</string>
+    <string name="please_fill_in_the_information">Please fill in the information</string>
+    <string name="incoming_call_picture">Incoming call picture</string>
+    <string name="video_of_incoming_calls">Video of incoming calls</string>
+    <string name="call_later">Call later</string>
+    <string name="now">Now</string>
+    <string name="time_call_seconds">%s seconds</string>
+    <string name="time_call_minutes">%s minutes</string>
+    <string name="time_call_one_minutes">1 minute</string>
+    <string name="send_later">Send later</string>
+    <string name="pick_up_later">Pick up later</string>
+    <string name="voice_later">Voice later</string>
+    <string name="note">Note</string>
+    <string name="note_title_error">Please fill out the \ninformation completely</string>
+    <string name="ok">OK</string>
+    <string name="maxium_characters">Maximum of 25 characters</string>
+    <string name="error_link_video">Can\'t get video link.\n Please choose another video</string>
+    <string name="title_calling">Calling...</string>
+
+    <string name="message">Messenger</string>
+    <string name="video_call_on_messenger">Video call on messenger</string>
+    <string name="refuse">REFUSE</string>
+    <string name="answer">Answer</string>
+
+
+</resources>

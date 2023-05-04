@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:padding="4dp">
+
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF"/>
+            <size android:height="3dp"
+                android:width="3dp"/>
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/switch_pressed"
+        android:bottom="5dp"
+        android:top="5dp"
+        android:left="5dp"
+        android:right="5dp"/>
+
+</layer-list>

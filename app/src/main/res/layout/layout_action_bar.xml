@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <nat.pink.base.customView.ExtTextView
+        android:id="@+id/txt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        android:layout_weight="1"
+        android:text="@string/title_make_video_call"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sdp"
+        app:textViewFontAssetName="@string/font_bold" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/iv_create_new_messenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/ic_create_new_messenger"
+        android:visibility="gone" />
+
+    <nat.pink.base.customView.ExtTextView
+        android:id="@+id/txt_action"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text="@string/call_now"
+        android:textColor="@color/color_335AFB"
+        android:textSize="@dimen/_14sdp"
+        app:textViewFontAssetName="@string/font_bold" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

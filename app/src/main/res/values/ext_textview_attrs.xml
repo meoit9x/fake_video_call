@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExtTextView">
+        <attr name="textViewFontAssetName" format="string" />
+        <attr name="limit" format="integer" />
+        <attr name="isLimit" format="boolean" />
+        <attr name="chooseItem" format="boolean" />
+    </declare-styleable>
+</resources>
