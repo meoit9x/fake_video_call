@@ -22,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import nat.pink.base.databinding.ActivityMainBinding;
 import nat.pink.base.ui.home.HomeFragment;
+import nat.pink.base.ui.tool.FragmentSplash;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,29 +38,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         fragmentManager = getSupportFragmentManager();
-
         initView();
         initData();
     }
 
     private void initData() {
         TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        if (tm.getNetworkCountryIso().toLowerCase().contains("v1n")) {
-            Intent intent = new Intent(this, ShowWebActivity.class);
-            startActivity(intent);
+        if (tm.getNetworkCountryIso().toLowerCase().contains("vn")) {
+            replaceFragment(new FragmentSplash(), FragmentSplash.class.getSimpleName());
+            binding.txtShowWeb.setVisibility(View.GONE);
         }
     }
 
     private void initView() {
         addFragment(new HomeFragment(), HomeFragment.TAG);
         binding.txtShowWeb.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ShowWebActivity.class);
-            startActivity(intent);
+            addFragment(new FragmentSplash(), FragmentSplash.class.getSimpleName());
         });
     }
 

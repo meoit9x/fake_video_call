@@ -65,4 +65,5 @@ dependencies {
     // Carbon view
     api 'tk.zielony:carbon:0.16.0.1'
     implementation 'com.linsea:universalvideoview:1.1.0@aar'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
 }
