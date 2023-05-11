@@ -17,6 +17,8 @@ import nat.pink.base.ui.home.HomeViewModel;
 import nat.pink.base.utils.PreferenceUtil;
 
 public class FragmentMain extends BaseFragment<FragmentMainBinding, HomeViewModel> {
+
+    public static final String TAG = "FragmentMain";
     @Override
     protected HomeViewModel getViewModel() {
         return new ViewModelProvider(requireActivity()).get(HomeViewModel.class);

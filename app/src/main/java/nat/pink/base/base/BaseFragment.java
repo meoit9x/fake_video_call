@@ -38,10 +38,12 @@ public abstract class BaseFragment<VB extends ViewBinding, VM extends BaseViewMo
         try {
             Method inflateMethod = clazz.getMethod("inflate", LayoutInflater.class, ViewGroup.class, boolean.class);
             binding = (VB) inflateMethod.invoke(null, inflater, container, false);
+            binding.getRoot().setOnClickListener(view -> {});
             return binding.getRoot();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

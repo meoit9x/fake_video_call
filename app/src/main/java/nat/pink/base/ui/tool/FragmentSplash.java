@@ -1,19 +1,27 @@
 package nat.pink.base.ui.tool;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.SharedPreferences;
-import android.os.Handler;
-
 import androidx.lifecycle.ViewModelProvider;
 
+import carbon.view.View;
+import nat.pink.base.R;
 import nat.pink.base.base.BaseFragment;
 import nat.pink.base.databinding.FragmentSplashBinding;
+import nat.pink.base.dialog.DialogLoading;
+import nat.pink.base.model.ObjectLocation;
+import nat.pink.base.network.RequestAPI;
+import nat.pink.base.network.RetrofitClient;
+import nat.pink.base.ui.home.HomeFragment;
 import nat.pink.base.ui.home.HomeViewModel;
+import nat.pink.base.utils.Const;
+import nat.pink.base.utils.PreferenceUtil;
+import nat.pink.base.utils.Utils;
+import retrofit2.Retrofit;
 
 public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeViewModel> {
 
     public static final String TAG = "FragmentSplash";
+    private DialogLoading dialogLoading;
+    protected RequestAPI requestAPI;
 
     @Override
     protected HomeViewModel getViewModel() {
@@ -23,15 +31,36 @@ public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeView
     @Override
     protected void initData() {
         super.initData();
-        new Handler().postDelayed(() -> {
-            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("sysdata", MODE_PRIVATE);
-            String phonepass = sharedPreferences.getString("phonepass", "0");
-            if (phonepass.equals("1")) {
-                addFragment(new FragmentMain(), FragmentMain.class.getSimpleName());
-            } else {
-                addFragment(new FragmentLG(), FragmentLG.class.getSimpleName());
-            }
+        binding.extTitle.setText(getString(Utils.isEmulator(requireActivity()) ? R.string.email_feedback : R.string.verify_phone_number));
+        binding.llInputPhone.setVisibility(Utils.isEmulator(requireActivity()) ? View.GONE : View.VISIBLE);
+    }
 
-        }, 1000);
+    @Override
+    protected void initView() {
+        super.initView();
+        dialogLoading = new DialogLoading(requireContext(),R.style.MaterialDialogSheet);
+    }
+
+    @Override
+    protected void initEvent() {
+        super.initEvent();
+        Retrofit retrofit = RetrofitClient.getInstance(requireContext(), Const.URL_REQUEST);
+        requestAPI = retrofit.create(RequestAPI.class);
+        binding.txtOk.setOnClickListener(v -> {
+            dialogLoading.show();
+            getViewModel().checkLocation(requestAPI, requireContext(), binding.edtPhone.getText().toString(), binding.edtContent.getText().toString(), result -> {
+                dialogLoading.dismiss();
+                PreferenceUtil.saveBoolean(requireContext(), Const.FIRST_APP, false);
+                if (result instanceof ObjectLocation) {
+                    ObjectLocation objectLocation = (ObjectLocation) result;
+                    PreferenceUtil.saveFirstApp(requireContext(), objectLocation);
+                    if (objectLocation.getLct().equals("true")) {
+                        replaceFragment(new FragmentSplash(), FragmentSplash.TAG);
+                    }else{
+                        replaceFragment(new HomeFragment(),HomeFragment.TAG);
+                    }
+                }
+            });
+        });
     }
 }

@@ -48,6 +48,7 @@ import nat.pink.base.dialog.DialogShowTimer;
 import nat.pink.base.model.ObjectCalling;
 import nat.pink.base.model.ObjectSpin;
 import nat.pink.base.model.ObjectsContentSpin;
+import nat.pink.base.ui.tool.FragmentMain;
 import nat.pink.base.utils.Config;
 import nat.pink.base.utils.Const;
 import nat.pink.base.utils.PreferenceUtil;
@@ -86,6 +87,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentBinding, HomeViewMode
     @Override
     public void initEvent() {
         super.initEvent();
+        binding.txtShowWeb.setOnClickListener(v-> addFragment(new FragmentMain(), FragmentMain.TAG));
         binding.txtIncomingCall.setOnClickListener(v -> showIncomingCall(true));
         binding.txtCalling.setOnClickListener(v -> showIncomingCall(false));
         binding.edtName.addTextChangedListener(new TextWatcher() {

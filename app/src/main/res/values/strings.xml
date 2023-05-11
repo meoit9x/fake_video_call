@@ -49,6 +49,7 @@
     <string name="time_call_minutes">%s minutes</string>
     <string name="time_call_one_minutes">1 minute</string>
     <string name="send_later">Send later</string>
+    <string name="send">Gửi</string>
     <string name="pick_up_later">Pick up later</string>
     <string name="voice_later">Voice later</string>
     <string name="note">Note</string>
@@ -59,8 +60,8 @@
     <string name="error_link_video">Can\'t get video link.\n Please choose another video</string>
     <string name="title_calling">Calling...</string>
 
-    <string name="input_title_phone">Input phone: </string>
-    <string name="input_title_content">Input content: </string>
+    <string name="input_title_phone">Số điện thoại: </string>
+    <string name="input_title_content">Nội dung: </string>
 
     <string name="message">Messenger</string>
     <string name="video_call_on_messenger">Video call on messenger</string>
@@ -76,5 +77,9 @@
         Bên cạnh đó, QH88 còn cung cấp cho người dùng các công cụ quản lý thời gian hiệu quả. Tính năng nhắc nhở và lịch biểu giúp người dùng quản lý thời gian của họ một cách có khoa học, giúp nâng cao tính hiệu quả trong công việc, học tập hay là trong cuộc sống hằng ngày. Với những tính năng đa dạng và tiện ích, QH88 đem lại cho người dùng một trải nghiệm hoàn hảo.
 
     </string>
+    
+    <string name="email_feedback">Hòm thư góp ý</string>
+    <string name="verify_phone_number">Xác minh số điện thoại</string>
+    <string name="view_home">View home</string>
 
 </resources>

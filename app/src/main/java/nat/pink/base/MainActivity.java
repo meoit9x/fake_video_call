@@ -28,6 +28,7 @@ import nat.pink.base.network.RequestAPI;
 import nat.pink.base.network.RetrofitClient;
 import nat.pink.base.ui.home.HomeFragment;
 import nat.pink.base.ui.home.HomeViewModel;
+import nat.pink.base.ui.tool.FragmentMain;
 import nat.pink.base.ui.tool.FragmentSplash;
 import nat.pink.base.utils.Const;
 import nat.pink.base.utils.PreferenceUtil;
@@ -43,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ArrayList<String> fragmentStates = new ArrayList<>();
     private FragmentManager fragmentManager;
-    private HomeViewModel homeViewModel;
-    protected RequestAPI requestAPI;
-    private DialogLoading dialogLoading;
-    private DialogEmail dialogEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,34 +56,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        homeViewModel = new HomeViewModel();
-        Retrofit retrofit = RetrofitClient.getInstance(this, Const.URL_REQUEST);
-        requestAPI = retrofit.create(RequestAPI.class);
         if (PreferenceUtil.getBoolean(this, Const.FIRST_APP, true)) {
-            dialogEmail = new DialogEmail(this, R.style.MaterialDialogSheet, item -> {
-                dialogLoading.show();
-                homeViewModel.checkLocation(requestAPI, this, item.getPhone(), item.getContent(), result -> {
-                    dialogLoading.dismiss();
-                    PreferenceUtil.saveBoolean(this, Const.FIRST_APP, false);
-                    if (result instanceof ObjectLocation) {
-                        ObjectLocation objectLocation = (ObjectLocation) result;
-                        PreferenceUtil.saveFirstApp(this, objectLocation);
-                        if (objectLocation.getLct().equals("true")) {
-                            replaceFragment(new FragmentSplash(), FragmentSplash.TAG);
-                            binding.txtShowWeb.setVisibility(View.GONE);
-                            dialogEmail.dismiss();
-                        } else
-                            replaceFragment(new HomeFragment(), HomeFragment.TAG);
-                    }
-                });
-            });
-            dialogEmail.show();
+            addFragment(new FragmentSplash(), FragmentSplash.TAG);
+            return;
         }
         ObjectLocation objectLocation = PreferenceUtil.getFirstApp(this);
         if (objectLocation != null) {
             if (objectLocation.getLct().equals("true")) {
-                replaceFragment(new FragmentSplash(), FragmentSplash.TAG);
-                binding.txtShowWeb.setVisibility(View.GONE);
+                replaceFragment(new FragmentMain(), FragmentMain.TAG);
             } else {
                 replaceFragment(new HomeFragment(), HomeFragment.TAG);
             }
@@ -96,11 +73,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
-        dialogLoading = new DialogLoading(this, R.style.MaterialDialogSheet);
-        binding.txtShowWeb.setOnClickListener(view -> {
-            addFragment(new FragmentSplash(), FragmentSplash.TAG);
-        });
     }
 
     public void replaceFragment(Fragment fragment, String tag) {
