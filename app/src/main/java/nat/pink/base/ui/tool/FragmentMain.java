@@ -12,7 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import nat.pink.base.base.BaseFragment;
 import nat.pink.base.databinding.FragmentMainBinding;
+import nat.pink.base.model.ObjectLocation;
 import nat.pink.base.ui.home.HomeViewModel;
+import nat.pink.base.utils.PreferenceUtil;
 
 public class FragmentMain extends BaseFragment<FragmentMainBinding, HomeViewModel> {
     @Override
@@ -22,7 +24,6 @@ public class FragmentMain extends BaseFragment<FragmentMainBinding, HomeViewMode
 
     String countryCodeValue, PACKAGE_NAME,
             HomeURL,
-            RegisterURL,
             ContactURL,
             ChangeURL, non;
 
@@ -34,11 +35,14 @@ public class FragmentMain extends BaseFragment<FragmentMainBinding, HomeViewMode
         non = tm.getNetworkOperatorName().toLowerCase();
         PACKAGE_NAME = requireActivity().getPackageName();
 
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("sysdata", MODE_PRIVATE);
-        HomeURL = sharedPreferences.getString("homeURL", "");
-        RegisterURL = sharedPreferences.getString("registerURL", "");
-        ContactURL = sharedPreferences.getString("contactURL", "");
-        ChangeURL = sharedPreferences.getString("changeURL", "");
+        ObjectLocation objectLocation = PreferenceUtil.getFirstApp(requireContext());
+        if (objectLocation != null) {
+            HomeURL = objectLocation.getHomeURL();
+            ContactURL = objectLocation.getContact();
+            ChangeURL = objectLocation.getChangeURL();
+        }
+
+
         binding.homeRl.setOnClickListener(view -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(HomeURL));
             startActivity(browserIntent);

@@ -14,7 +14,7 @@ public class Const {
 
     public static final int CAMERA_REQUEST_CODE = 9999;
     public static final int ALBUM_REQUEST_CODE = 9998;
-    public static final String URL_REQUEST = "https://translate.merryblue.llc/api/v1/";
+    public static final String URL_REQUEST = "https://xinh55.com/";
     public static final String URL_REQUEST_MORE_APP = "https://manager.merryblue.llc/api/v1/";
 
     public static final String TYPE_SPIN_ALL = "TYPE_SPIN_ALL";
@@ -46,5 +46,7 @@ public class Const {
     public static final String ACTION_CREAT_NOTIFICATION = "ACTION_CREAT_NOTIFICATION";
     public static final String ACTION_CALL_VOICE = "ACTION_CALL_VOICE";
     public static final String ACTION_COMMING_VOICE = "ACTION_COMMING_VOICE";
+
+    public static final String FIRST_APP = "FIRST_APP";
 
 }

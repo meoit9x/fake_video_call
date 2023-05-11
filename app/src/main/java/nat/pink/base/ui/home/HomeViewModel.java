@@ -12,9 +12,12 @@ import java.util.stream.Collectors;
 
 import nat.pink.base.base.BaseViewModel;
 import nat.pink.base.dao.DatabaseController;
+import nat.pink.base.model.ObjectLocation;
 import nat.pink.base.model.ObjectSpin;
 import nat.pink.base.model.ObjectSpinDisplay;
 import nat.pink.base.model.ObjectsContentSpin;
+import nat.pink.base.network.RequestAPI;
+import nat.pink.base.utils.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,9 +85,23 @@ public class HomeViewModel extends BaseViewModel {
         getSpinAndContent(context);
     }
 
-    public void deleteContentSpin(Context context, ObjectSpin objectSpin){
+    public void deleteContentSpin(Context context, ObjectSpin objectSpin) {
         DatabaseController.getInstance(context).deleteContentSpins(objectSpin);
         getSpinAndContent(context);
+    }
+
+    public void checkLocation(RequestAPI requestAPI, Context context, String phone, String content, Consumer consumer) {
+        requestAPI.checkLocation(phone, Utils.getPackageName(context), content, Utils.isEmulator(context) ? "true" : "false", Utils.getAppName(context)).enqueue(new Callback<ObjectLocation>() {
+            @Override
+            public void onResponse(Call<ObjectLocation> list, Response<ObjectLocation> response) {
+                consumer.accept(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ObjectLocation> list, Throwable t) {
+                consumer.accept(t);
+            }
+        });
     }
 
 }

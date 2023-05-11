@@ -16,12 +16,10 @@ import nat.pink.base.databinding.DialogLoadingBinding;
 
 public class DialogLoading extends Dialog {
 
-    private Consumer consumer;
     private DialogLoadingBinding binding;
 
-    public DialogLoading(@NonNull Context context, int themeResId, Consumer consumer) {
+    public DialogLoading(@NonNull Context context, int themeResId) {
         super(context, themeResId);
-        this.consumer = consumer;
     }
 
     @Override

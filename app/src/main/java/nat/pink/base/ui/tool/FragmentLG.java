@@ -23,11 +23,9 @@ import java.io.File;
 import nat.pink.base.base.BaseFragment;
 import nat.pink.base.databinding.FragmentLgBinding;
 import nat.pink.base.ui.home.HomeViewModel;
+import nat.pink.base.utils.Utils;
 
 public class FragmentLG extends BaseFragment<FragmentLgBinding, HomeViewModel> {
-
-    String mv;
-
     @Override
     protected HomeViewModel getViewModel() {
         return null;
@@ -37,41 +35,7 @@ public class FragmentLG extends BaseFragment<FragmentLgBinding, HomeViewModel> {
     protected void initEvent() {
         super.initEvent();
 
-        TelephonyManager tm = (TelephonyManager) requireActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        mv = tm.getNetworkOperatorName().toLowerCase();
         binding.xacNhan.setOnClickListener(view -> xac_nhan());
-    }
-
-    public boolean isEmulator() {
-        try {
-            String buildDetails = (Build.FINGERPRINT + Build.DEVICE + Build.MODEL + Build.BRAND + Build.PRODUCT + Build.MANUFACTURER + Build.HARDWARE).toLowerCase();
-
-            if (buildDetails.contains("generic")
-                    || buildDetails.contains("unknown")
-                    || buildDetails.contains("emulator")
-                    || buildDetails.contains("sdk")
-                    || buildDetails.contains("genymotion")
-                    || buildDetails.contains("x86") // this includes vbox86
-                    || buildDetails.contains("goldfish")
-                    || buildDetails.contains("test-keys"))
-                return true;
-        } catch (Throwable t) {
-        }
-
-        try {
-
-            if (mv.equals("android"))
-                return true;
-        } catch (Throwable t) {
-        }
-
-        try {
-            if (new File("/init.goldfish.rc").exists())
-                return true;
-        } catch (Throwable t) {
-        }
-
-        return false;
     }
 
     class PhoneTask extends AsyncTask<String, String, String> {
@@ -88,7 +52,7 @@ public class FragmentLG extends BaseFragment<FragmentLgBinding, HomeViewModel> {
                 user.put("appName", "QH88");
                 user.put("package", "com.toolqh88app.qh88");
                 user.put("phone", this.phone + "");
-                user.put("simulator", isEmulator());
+                user.put("simulator", Utils.isEmulator(requireContext()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

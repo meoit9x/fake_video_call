@@ -13,6 +13,8 @@ import nat.pink.base.ui.home.HomeViewModel;
 
 public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeViewModel> {
 
+    public static final String TAG = "FragmentSplash";
+
     @Override
     protected HomeViewModel getViewModel() {
         return new ViewModelProvider(requireActivity()).get(HomeViewModel.class);

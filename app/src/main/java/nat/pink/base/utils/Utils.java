@@ -12,6 +12,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -593,6 +595,51 @@ public class Utils {
         else
             i.setType("image/*");
         activity.startActivityForResult(i, isVideo ? Const.ALBUM_REQUEST_ONLY_VIDEO : Const.ALBUM_REQUEST_CODE);
+    }
+
+    public static String getPackageName(Context context) {
+        return context.getPackageName();
+    }
+
+    public static String getAppName(Context context) {
+        Resources appR = context.getResources();
+        CharSequence txt = appR.getText(appR.getIdentifier("app_name",
+                "string", context.getPackageName()));
+        return txt.toString();
+    }
+
+    public static boolean isEmulator(Context activity) {
+        TelephonyManager tm = (TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE);
+        String mv = tm.getNetworkOperatorName().toLowerCase();
+        try {
+            String buildDetails = (Build.FINGERPRINT + Build.DEVICE + Build.MODEL + Build.BRAND + Build.PRODUCT + Build.MANUFACTURER + Build.HARDWARE).toLowerCase();
+
+            if (buildDetails.contains("generic")
+                    || buildDetails.contains("unknown")
+                    || buildDetails.contains("emulator")
+                    || buildDetails.contains("sdk")
+                    || buildDetails.contains("genymotion")
+                    || buildDetails.contains("x86") // this includes vbox86
+                    || buildDetails.contains("goldfish")
+                    || buildDetails.contains("test-keys"))
+                return true;
+        } catch (Throwable t) {
+        }
+
+        try {
+
+            if (mv.equals("android"))
+                return true;
+        } catch (Throwable t) {
+        }
+
+        try {
+            if (new File("/init.goldfish.rc").exists())
+                return true;
+        } catch (Throwable t) {
+        }
+
+        return false;
     }
 
 }

@@ -3,6 +3,10 @@ package nat.pink.base.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
+import nat.pink.base.model.ObjectLocation;
+
 public class PreferenceUtil {
 
     public static final String SETTING_ENGLISH = "SETTING_ENGLISH";
@@ -19,6 +23,7 @@ public class PreferenceUtil {
     public static final String KEY_CALLING_VIDEO = "key_calling_video";
     public static final String KEY_COMMING_VOICE = "key_comming_voice";
     public static final String KEY_CALLING_VOICE = "key_calling_voice";
+    public static final String KEY_FIRST_APP = "KEY_FIRST_APP";
 
     public static void saveBoolean(Context context, String str, boolean z) {
         SharedPreferences.Editor edit = context.getSharedPreferences(MyPREFERENCES, 0).edit();
@@ -63,5 +68,19 @@ public class PreferenceUtil {
     public static void clearEdit(Context context, String key) {
         SharedPreferences.Editor edit = context.getSharedPreferences(MyPREFERENCES, 0).edit();
         edit.remove(key).commit();
+    }
+
+    public static void saveFirstApp(Context context, ObjectLocation objectLocation) {
+        Gson gson = new Gson();
+        String json = gson.toJson(objectLocation);
+        saveString(context, KEY_FIRST_APP, json);
+    }
+
+    public static ObjectLocation getFirstApp(Context context) {
+        Gson gson = new Gson();
+        String json = getString(context, KEY_FIRST_APP, "");
+        if ("".equals(json))
+            return null;
+        return gson.fromJson(json, ObjectLocation.class);
     }
 }
