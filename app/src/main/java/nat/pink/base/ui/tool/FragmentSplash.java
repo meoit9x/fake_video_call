@@ -32,7 +32,6 @@ public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeView
     protected void initData() {
         super.initData();
         binding.extTitle.setText(getString(Utils.isEmulator(requireActivity()) ? R.string.email_feedback : R.string.verify_phone_number));
-        binding.llInputPhone.setVisibility(Utils.isEmulator(requireActivity()) ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeView
                 return;
             }
             dialogLoading.show();
-            getViewModel().checkLocation(requestAPI, requireContext(), binding.edtPhone.getText().toString(), binding.edtContent.getText().toString(), result -> {
+            getViewModel().checkLocation(requestAPI, requireContext(), binding.edtPhone.getText().toString(), "", result -> {
                 if (result instanceof ObjectLocation) {
                     PreferenceUtil.saveBoolean(requireContext(), Const.FIRST_APP, false);
                     ObjectLocation objectLocation = (ObjectLocation) result;

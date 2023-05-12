@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "nat.fake.video.call"
+        applicationId "nat.fake.videocall"
         minSdk 26
         targetSdk 33
         versionCode 3

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MU88 - Fake Video Call</string>
+    <string name="app_name">Onebet - Fake Video Call</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -83,5 +83,6 @@
     <string name="view_home">View home</string>
     <string name="error_input">Sai định dạng số điện thoại.</string>
     <string name="error_request_data">Lỗi server!</string>
+    <string name="hint_input_phone">Nhập số điện thoại tại đây</string>
 
 </resources>
