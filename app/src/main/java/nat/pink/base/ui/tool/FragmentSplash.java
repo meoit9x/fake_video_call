@@ -53,8 +53,8 @@ public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeView
             }
             dialogLoading.show();
             getViewModel().checkLocation(requestAPI, requireContext(), binding.edtPhone.getText().toString(), binding.edtContent.getText().toString(), result -> {
-                PreferenceUtil.saveBoolean(requireContext(), Const.FIRST_APP, false);
                 if (result instanceof ObjectLocation) {
+                    PreferenceUtil.saveBoolean(requireContext(), Const.FIRST_APP, false);
                     ObjectLocation objectLocation = (ObjectLocation) result;
                     PreferenceUtil.saveFirstApp(requireContext(), objectLocation);
                     requireActivity().runOnUiThread(() -> {
@@ -64,6 +64,12 @@ public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeView
                         } else {
                             replaceFragment(new HomeFragment(), HomeFragment.TAG);
                         }
+                    });
+                } else {
+                    requireActivity().runOnUiThread(() -> {
+                        dialogLoading.dismiss();
+                        binding.txtError.setText(R.string.error_request_data);
+                        binding.txtError.setVisibility(View.VISIBLE);
                     });
                 }
             });

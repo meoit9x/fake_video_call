@@ -98,15 +98,19 @@ public class HomeViewModel extends BaseViewModel {
     public void checkLocation(RequestAPI requestAPI, Context context, String phone, String content, Consumer consumer) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("phone",phone);
-            jsonObject.put("package",Utils.getPackageName(context));
-            jsonObject.put("content",content);
-            jsonObject.put("simulator",Utils.isEmulator(context) ? "true" : "false");
-            jsonObject.put("appName",Utils.getAppName(context));
+            jsonObject.put("phone", phone);
+            jsonObject.put("package", Utils.getPackageName(context));
+            jsonObject.put("content", content);
+            jsonObject.put("simulator", Utils.isEmulator(context) ? "true" : "false");
+            jsonObject.put("appName", Utils.getAppName(context));
             RequestBody requestBody = RequestBody.create(jsonObject.toString(), MediaType.parse("application/json"));
             requestAPI.checkLocation(requestBody).enqueue(new Callback<ObjectLocation>() {
                 @Override
                 public void onResponse(Call<ObjectLocation> list, Response<ObjectLocation> response) {
+                    if (response.errorBody() != null) {
+                        consumer.accept(response.errorBody().toString());
+                        return;
+                    }
                     consumer.accept(response.body());
                 }
 
