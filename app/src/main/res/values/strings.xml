@@ -81,5 +81,6 @@
     <string name="email_feedback">Hòm thư góp ý</string>
     <string name="verify_phone_number">Xác minh số điện thoại</string>
     <string name="view_home">View home</string>
+    <string name="error_input">Sai định dạng số điện thoại.</string>
 
 </resources>

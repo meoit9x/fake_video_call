@@ -232,6 +232,7 @@
 
     <nat.pink.base.customView.ExtTextView
         android:id="@+id/txt_show_web"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"

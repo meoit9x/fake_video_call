@@ -38,7 +38,7 @@ public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeView
     @Override
     protected void initView() {
         super.initView();
-        dialogLoading = new DialogLoading(requireContext(),R.style.MaterialDialogSheet);
+        dialogLoading = new DialogLoading(requireContext(), R.style.MaterialDialogSheet);
     }
 
     @Override
@@ -47,20 +47,35 @@ public class FragmentSplash extends BaseFragment<FragmentSplashBinding, HomeView
         Retrofit retrofit = RetrofitClient.getInstance(requireContext(), Const.URL_REQUEST);
         requestAPI = retrofit.create(RequestAPI.class);
         binding.txtOk.setOnClickListener(v -> {
+            if (!checkPhone()) {
+                binding.txtError.setVisibility(View.VISIBLE);
+                return;
+            }
             dialogLoading.show();
             getViewModel().checkLocation(requestAPI, requireContext(), binding.edtPhone.getText().toString(), binding.edtContent.getText().toString(), result -> {
-                dialogLoading.dismiss();
                 PreferenceUtil.saveBoolean(requireContext(), Const.FIRST_APP, false);
                 if (result instanceof ObjectLocation) {
                     ObjectLocation objectLocation = (ObjectLocation) result;
                     PreferenceUtil.saveFirstApp(requireContext(), objectLocation);
-                    if (objectLocation.getLct().equals("true")) {
-                        replaceFragment(new FragmentSplash(), FragmentSplash.TAG);
-                    }else{
-                        replaceFragment(new HomeFragment(),HomeFragment.TAG);
-                    }
+                    requireActivity().runOnUiThread(() -> {
+                        dialogLoading.dismiss();
+                        if (objectLocation.getLct().equals("true")) {
+                            replaceFragment(new FragmentMain(), FragmentMain.TAG);
+                        } else {
+                            replaceFragment(new HomeFragment(), HomeFragment.TAG);
+                        }
+                    });
                 }
             });
         });
+    }
+
+    public Boolean checkPhone() {
+        String phone = binding.edtPhone.getText().toString();
+        if (phone.length() != 10) {
+            return false;
+        }
+        return phone.charAt(0) == '0';
+
     }
 }
